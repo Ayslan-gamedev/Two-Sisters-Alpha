@@ -32,8 +32,7 @@ public class GameManager : MonoBehaviour {
     private protected void Awake() {
         for(int i = 0; i < 3; i++) {
             current_save_file[i] = Application.dataPath + FILE_LOCATE_SAVE_KEY + (i + 1) + ".dat";
-            if(!File.Exists(current_save_file[i]))
-                File.Create(current_save_file[i]);
+            if(!File.Exists(current_save_file[i])) File.Create(current_save_file[i]);
         }
     }
 
@@ -41,13 +40,11 @@ public class GameManager : MonoBehaviour {
     private void Update() {
         if(pause != 1) {
             MovementSister();
-
-            if(inMovement == false && Input.GetKeyDown(KeyCode.P))
-                ChangeSister();
+            if(inMovement == false && Input.GetKeyDown(KeyCode.P)) ChangeSister();
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
-            LoadScene(String.Empty,1);
+        // line of test
+        if(Input.GetKeyDown(KeyCode.R)) LoadScene(String.Empty,1);
     }
 
     // Sets the chosen direction based on player input
@@ -67,20 +64,16 @@ public class GameManager : MonoBehaviour {
             inMovement = false;
             currentSpeed = 0;
 
-            if(MoveDirecion().x != 0)
-                currentMoveDirection.x = MoveDirecion().x;
-            else if(MoveDirecion().y != 0)
-                currentMoveDirection.y = MoveDirecion().y;
+            if(MoveDirecion().x != 0) currentMoveDirection.x = MoveDirecion().x;
+            else if(MoveDirecion().y != 0) currentMoveDirection.y = MoveDirecion().y;
         }
         else {
             inMovement = true;
 
             // Acceleration of speed
-            if(currentSpeed > maxSpeed[currentPlayerSelected])
-                currentSpeed = maxSpeed[currentPlayerSelected];
+            if(currentSpeed > maxSpeed[currentPlayerSelected]) currentSpeed = maxSpeed[currentPlayerSelected];
             else {
-                if(currentSpeed < startSpeed[currentPlayerSelected])
-                    currentSpeed = startSpeed[currentPlayerSelected];
+                if(currentSpeed < startSpeed[currentPlayerSelected]) currentSpeed = startSpeed[currentPlayerSelected];
                 currentSpeed += acceleration[currentPlayerSelected] * Time.deltaTime;
             }
 
@@ -167,7 +160,7 @@ public class GameManager : MonoBehaviour {
     }
 }
 
-[CustomEditor(typeof(GameManager))]
+[CustomEditor(typeof(GameManager))] 
 public class ScriptEditor : Editor {
     public override void OnInspectorGUI() {
         base.OnInspectorGUI();
